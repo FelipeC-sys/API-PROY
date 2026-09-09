@@ -1,0 +1,41 @@
+﻿<div class="users-page">
+  <h1>Usuarios</h1>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+  @if (errorMessage()) {
+    <p class="form-error">{{ errorMessage() }}</p>
+  }
+
+  @if (users().length > 0) {
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users(); track user.id) {
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <select
+                [ngModel]="user.role"
+                (ngModelChange)="changeRole(user, $event)"
+                [disabled]="savingUserId() === user.id"
+              >
+                @for (r of roles; track r) {
+                  <option [value]="r">{{ r }}</option>
+                }
+              </select>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
