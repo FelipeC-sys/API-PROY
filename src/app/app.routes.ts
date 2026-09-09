@@ -15,5 +15,10 @@ export const routes: Routes = [
     path: "tickets",
     canActivate: [authGuard],
     loadChildren: () => import("./features/tickets/tickets.routes").then((m) => m.TICKETS_ROUTES)
+  },
+  {
+    path: "admin/users",
+    canActivate: [authGuard],
+    loadChildren: () => import("./features/users/users.routes").then((m) => m.USERS_ROUTES)
   }
 ];
