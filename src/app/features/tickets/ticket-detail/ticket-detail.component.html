@@ -1,0 +1,41 @@
+﻿<div class="ticket-detail-page">
+  <a routerLink="/tickets" class="back-link">&larr; Volver a tickets</a>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+  @if (errorMessage()) {
+    <p class="form-error">{{ errorMessage() }}</p>
+  }
+
+  @if (ticket(); as t) {
+    <section class="ticket-info">
+      <h1>{{ t.title }}</h1>
+      <p>{{ t.description }}</p>
+      <div class="meta">
+        <span class="badge" [class]="'status-' + t.status">{{ t.status }}</span>
+        <span class="badge" [class]="'priority-' + t.priority">{{ t.priority }}</span>
+      </div>
+    </section>
+
+    <section class="comments">
+      <h2>Comentarios</h2>
+      @for (comment of comments(); track comment.id) {
+        <div class="comment">
+          <strong>{{ comment.authorName ?? comment.authorId }}</strong>
+          <p>{{ comment.message }}</p>
+        </div>
+      }
+      @if (comments().length === 0) {
+        <p>Todavia no hay comentarios.</p>
+      }
+
+      <div class="add-comment">
+        <textarea [(ngModel)]="newComment" placeholder="Escribe un comentario..."></textarea>
+        <button (click)="addComment()" [disabled]="sendingComment() || !newComment.trim()">
+          {{ sendingComment() ? "Enviando..." : "Comentar" }}
+        </button>
+      </div>
+    </section>
+  }
+</div>
