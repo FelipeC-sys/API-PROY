@@ -1,34 +1,39 @@
-﻿<div class="ticket-form-page">
+﻿<div class="page page-narrow">
   <a routerLink="/tickets" class="back-link">&larr; Volver a tickets</a>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <h1>Nuevo ticket</h1>
+  <div class="card card-stub">
+    <div class="stub-strip"></div>
+    <div class="ticket-form-body">
+      <h1>Nuevo ticket</h1>
 
-    <label>
-      Titulo
-      <input type="text" formControlName="title" />
-    </label>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+          <label for="title">Titulo</label>
+          <input id="title" type="text" formControlName="title" />
+        </div>
 
-    <label>
-      Descripcion
-      <textarea formControlName="description"></textarea>
-    </label>
+        <div class="field">
+          <label for="description">Descripcion</label>
+          <textarea id="description" formControlName="description"></textarea>
+        </div>
 
-    <label>
-      Prioridad
-      <select formControlName="priority">
-        @for (p of priorities; track p) {
-          <option [value]="p">{{ p }}</option>
+        <div class="field">
+          <label for="priority">Prioridad</label>
+          <select id="priority" formControlName="priority">
+            @for (p of priorities; track p) {
+              <option [value]="p">{{ p }}</option>
+            }
+          </select>
+        </div>
+
+        @if (errorMessage()) {
+          <p class="form-error">{{ errorMessage() }}</p>
         }
-      </select>
-    </label>
 
-    @if (errorMessage()) {
-      <p class="form-error">{{ errorMessage() }}</p>
-    }
-
-    <button type="submit" [disabled]="loading()">
-      {{ loading() ? "Creando..." : "Crear ticket" }}
-    </button>
-  </form>
+        <button type="submit" class="btn btn-primary" [disabled]="loading()">
+          {{ loading() ? "Creando..." : "Crear ticket" }}
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

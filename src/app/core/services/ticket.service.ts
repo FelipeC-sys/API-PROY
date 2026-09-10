@@ -18,7 +18,7 @@ export class TicketService {
   list(filters: TicketFilters): Observable<PaginatedResponse<Ticket>> {
     let params = new HttpParams()
       .set("page", String(filters.page ?? 1))
-      .set("pageSize", String(filters.pageSize ?? 10));
+      .set("limit", String(filters.pageSize ?? 10));
 
     if (filters.status) params = params.set("status", filters.status);
     if (filters.priority) params = params.set("priority", filters.priority);

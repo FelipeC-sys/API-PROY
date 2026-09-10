@@ -1,50 +1,53 @@
-<div class="auth-page">
-  <form class="auth-card" [formGroup]="form" (ngSubmit)="submit()">
-    <h1>Crear cuenta</h1>
-    <p class="hint">Los usuarios nuevos siempre se crean con rol Cliente.</p>
+﻿<div class="auth-shell">
+  <div class="card auth-card">
+    <div class="stub-strip"></div>
+    <div class="auth-card-body">
+      <h1>Crear cuenta</h1>
+      <p class="page-sub">Los usuarios nuevos siempre se crean con rol Cliente.</p>
 
-    <label>
-      Nombre
-      <input type="text" formControlName="name" autocomplete="name" />
-    </label>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" type="text" formControlName="name" autocomplete="name" />
+        </div>
 
-    <label>
-      Correo
-      <input type="email" formControlName="email" autocomplete="username" />
-    </label>
-    @if (form.controls.email.touched && form.controls.email.invalid) {
-      <p class="field-error">Ingresa un correo válido.</p>
-    }
+        <div class="field">
+          <label for="email">Correo</label>
+          <input id="email" type="email" formControlName="email" autocomplete="username" />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <span class="form-error">Ingresa un correo valido.</span>
+          }
+        </div>
 
-    <label>
-      Contraseña
-      <input type="password" formControlName="password" autocomplete="new-password" />
-    </label>
-    @if (form.controls.password.touched && form.controls.password.invalid) {
-      <p class="field-error">Mínimo 6 caracteres.</p>
-    }
+        <div class="field">
+          <label for="password">Contrasena</label>
+          <input id="password" type="password" formControlName="password" autocomplete="new-password" />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <span class="form-error">Minimo 6 caracteres.</span>
+          }
+        </div>
 
-    <label>
-      Confirmar contraseña
-      <input type="password" formControlName="confirmPassword" autocomplete="new-password" />
-    </label>
-    @if (form.controls.confirmPassword.touched && form.errors?.['passwordsMismatch']) {
-      <p class="field-error">Las contraseñas no coinciden.</p>
-    }
+        <div class="field">
+          <label for="confirmPassword">Confirmar contrasena</label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" autocomplete="new-password" />
+          @if (form.controls.confirmPassword.touched && form.errors?.["passwordsMismatch"]) {
+            <span class="form-error">Las contrasenas no coinciden.</span>
+          }
+        </div>
 
-    @if (errorMessage()) {
-      <p class="form-error">{{ errorMessage() }}</p>
-    }
-    @if (success()) {
-      <p class="form-success">Cuenta creada. Redirigiendo al login...</p>
-    }
+        @if (errorMessage()) {
+          <p class="form-error">{{ errorMessage() }}</p>
+        }
+        @if (success()) {
+          <p class="form-success">Cuenta creada. Redirigiendo al login...</p>
+        }
 
-    <button type="submit" [disabled]="loading()">
-      {{ loading() ? 'Creando...' : 'Crear cuenta' }}
-    </button>
+        <button type="submit" class="btn btn-primary" style="width:100%" [disabled]="loading()">
+          {{ loading() ? "Creando..." : "Crear cuenta" }}
+        </button>
+      </form>
 
-    <p class="auth-link">
-      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
-    </p>
-  </form>
+      <p class="auth-link">Ya tienes cuenta? <a routerLink="/login">Inicia sesion</a></p>
+    </div>
+  </div>
 </div>

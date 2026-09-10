@@ -1,71 +1,81 @@
-﻿<div class="ticket-detail-page">
+﻿<div class="page page-narrow">
   <a routerLink="/tickets" class="back-link">&larr; Volver a tickets</a>
 
   @if (loading()) {
-    <p>Cargando...</p>
+    <p class="page-sub">Cargando...</p>
   }
   @if (errorMessage()) {
     <p class="form-error">{{ errorMessage() }}</p>
   }
 
   @if (ticket(); as t) {
-    <section class="ticket-info">
-      <h1>{{ t.title }}</h1>
-      <p>{{ t.description }}</p>
-      <div class="meta">
-        <span class="badge" [class]="'status-' + t.status">{{ t.status }}</span>
-        <span class="badge" [class]="'priority-' + t.priority">{{ t.priority }}</span>
+    <div class="card card-stub">
+      <div class="stub-strip"></div>
+      <div class="ticket-header">
+        <span class="ticket-ref">#{{ t.id.slice(-6) }}</span>
+        <h1>{{ t.title }}</h1>
+        <div class="badge-row">
+          <span class="badge" [class]="'status-' + t.status">{{ t.status }}</span>
+          <span class="badge" [class]="'priority-' + t.priority">{{ t.priority }}</span>
+        </div>
+        <p class="ticket-description">{{ t.description }}</p>
       </div>
-    </section>
+    </div>
 
-    @if (canUpdateStatus()) {
-      <section class="actions">
-        <h2>Actualizar estado</h2>
-        <div class="inline-form">
-          <select [(ngModel)]="selectedStatus">
-            @for (s of statuses; track s) {
-              <option [value]="s">{{ s }}</option>
-            }
-          </select>
-          <button (click)="updateStatus()" [disabled]="savingStatus()">
-            {{ savingStatus() ? "Guardando..." : "Guardar" }}
-          </button>
-        </div>
-      </section>
-    }
+    @if (canUpdateStatus() || canAssign()) {
+      <div class="actions-grid">
+        @if (canUpdateStatus()) {
+          <div class="action-block">
+            <h2>Actualizar estado</h2>
+            <div class="inline-form">
+              <select [(ngModel)]="selectedStatus">
+                @for (s of statuses; track s) {
+                  <option [value]="s">{{ s }}</option>
+                }
+              </select>
+              <button class="btn btn-primary" (click)="updateStatus()" [disabled]="savingStatus()">
+                {{ savingStatus() ? "Guardando..." : "Guardar" }}
+              </button>
+            </div>
+          </div>
+        }
 
-    @if (canAssign()) {
-      <section class="actions">
-        <h2>Asignar agente</h2>
-        <div class="inline-form">
-          <select [(ngModel)]="selectedAgentId">
-            <option value="">Sin asignar</option>
-            @for (agent of agents(); track agent.id) {
-              <option [value]="agent.id">{{ agent.name }}</option>
-            }
-          </select>
-          <button (click)="assignAgent()" [disabled]="assigning() || !selectedAgentId">
-            {{ assigning() ? "Asignando..." : "Asignar" }}
-          </button>
-        </div>
-      </section>
+        @if (canAssign()) {
+          <div class="action-block">
+            <h2>Asignar agente</h2>
+            <div class="inline-form">
+              <select [(ngModel)]="selectedAgentId">
+                <option value="">Sin asignar</option>
+                @for (agent of agents(); track agent.id) {
+                  <option [value]="agent.id">{{ agent.name }}</option>
+                }
+              </select>
+              <button class="btn btn-primary" (click)="assignAgent()" [disabled]="assigning() || !selectedAgentId">
+                {{ assigning() ? "Asignando..." : "Asignar" }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
     }
 
     <section class="comments">
       <h2>Comentarios</h2>
-      @for (comment of comments(); track comment.id) {
-        <div class="comment">
-          <strong>{{ comment.authorName ?? comment.authorId }}</strong>
-          <p>{{ comment.message }}</p>
-        </div>
-      }
       @if (comments().length === 0) {
-        <p>Todavia no hay comentarios.</p>
+        <div class="empty-state">Todavia no hay comentarios.</div>
       }
+      <div class="comment-list">
+        @for (comment of comments(); track comment.id) {
+          <div class="comment">
+            <strong>{{ comment.authorName ?? comment.authorId }}</strong>
+            <p>{{ comment.message }}</p>
+          </div>
+        }
+      </div>
 
       <div class="add-comment">
         <textarea [(ngModel)]="newComment" placeholder="Escribe un comentario..."></textarea>
-        <button (click)="addComment()" [disabled]="sendingComment() || !newComment.trim()">
+        <button class="btn btn-primary" (click)="addComment()" [disabled]="sendingComment() || !newComment.trim()">
           {{ sendingComment() ? "Enviando..." : "Comentar" }}
         </button>
       </div>

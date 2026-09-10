@@ -1,1 +1,270 @@
-/* You can add global styles to this file, and also import other style files */
+﻿@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+:root {
+  --color-bg: #f4f5f2;
+  --color-surface: #ffffff;
+  --color-ink: #1b1f27;
+  --color-ink-soft: #5b6270;
+  --color-border: #e2e3de;
+  --color-accent: #0f6656;
+  --color-accent-hover: #0c5245;
+
+  --color-status-open: #b45309;
+  --color-status-open-bg: #fdf3e4;
+  --color-status-in_progress: #1d4ed8;
+  --color-status-in_progress-bg: #eaf0fe;
+  --color-status-resolved: #15803d;
+  --color-status-resolved-bg: #e7f6ec;
+  --color-status-closed: #5b6270;
+  --color-status-closed-bg: #edede9;
+
+  --color-priority-low: #6b7280;
+  --color-priority-low-bg: #f1f2f4;
+  --color-priority-medium: #1d4ed8;
+  --color-priority-medium-bg: #eaf0fe;
+  --color-priority-high: #c2410c;
+  --color-priority-high-bg: #fdece3;
+  --color-priority-urgent: #b91c1c;
+  --color-priority-urgent-bg: #fbe9e9;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-card: 0 1px 2px rgba(20, 20, 20, 0.06), 0 1px 1px rgba(20, 20, 20, 0.04);
+
+  --font-display: "Fraunces", serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+/* Inputs base: asi cualquier select/input/textarea en cualquier pantalla
+   ya sale bien sin repetir estilos por componente. */
+input, select, textarea, button {
+  font-family: inherit;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.65rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+select:focus,
+textarea:focus,
+input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
+}
+
+/* Layout compartido */
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.page-narrow {
+  max-width: 640px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.page-sub {
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+  margin: 0.2rem 0 0;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Franja perforada: el motivo distintivo, un "boleto" con troquelado. */
+.stub-strip {
+  height: 6px;
+  background-color: var(--color-accent);
+  background-image: radial-gradient(circle at center, var(--color-surface) 2.2px, transparent 2.3px);
+  background-size: 14px 100%;
+  background-repeat: repeat-x;
+}
+
+.ticket-ref {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-soft);
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-ink-soft);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Formularios */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.9rem;
+}
+
+.form-error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+  margin: 0.35rem 0;
+}
+
+.form-success {
+  color: #15803d;
+  font-size: 0.85rem;
+  margin: 0.35rem 0;
+}
+
+.empty-state {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--color-ink-soft);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Badges de estado/prioridad: color real, no gris generico */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.badge.status-open { color: var(--color-status-open); background: var(--color-status-open-bg); }
+.badge.status-in_progress { color: var(--color-status-in_progress); background: var(--color-status-in_progress-bg); }
+.badge.status-resolved { color: var(--color-status-resolved); background: var(--color-status-resolved-bg); }
+.badge.status-closed { color: var(--color-status-closed); background: var(--color-status-closed-bg); }
+
+.badge.priority-low { color: var(--color-priority-low); background: var(--color-priority-low-bg); }
+.badge.priority-medium { color: var(--color-priority-medium); background: var(--color-priority-medium-bg); }
+.badge.priority-high { color: var(--color-priority-high); background: var(--color-priority-high-bg); }
+.badge.priority-urgent { color: var(--color-priority-urgent); background: var(--color-priority-urgent-bg); }
+
+/* Tabla generica (usuarios) */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table th {
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+  font-weight: 600;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.muted {
+  color: var(--color-ink-soft);
+}

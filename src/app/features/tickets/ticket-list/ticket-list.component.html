@@ -1,67 +1,66 @@
-﻿<div class="tickets-page">
-  <header>
-    <h1>Tickets</h1>
+﻿<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Tickets</h1>
+      <p class="page-sub">{{ total() }} en total</p>
+    </div>
     @if (canCreate()) {
-      <a routerLink="/tickets/new" class="btn-primary">+ Nuevo ticket</a>
+      <a routerLink="/tickets/new" class="btn btn-primary">Nuevo ticket</a>
     }
-  </header>
+  </div>
 
   <div class="filters">
-    <label>
-      Estado
+    <div class="field" style="margin-bottom:0">
+      <label>Estado</label>
       <select [(ngModel)]="statusFilter" (change)="applyFilters()">
         <option value="">Todos</option>
         @for (s of statuses; track s) {
           <option [value]="s">{{ s }}</option>
         }
       </select>
-    </label>
+    </div>
 
-    <label>
-      Prioridad
+    <div class="field" style="margin-bottom:0">
+      <label>Prioridad</label>
       <select [(ngModel)]="priorityFilter" (change)="applyFilters()">
         <option value="">Todas</option>
         @for (p of priorities; track p) {
           <option [value]="p">{{ p }}</option>
         }
       </select>
-    </label>
+    </div>
   </div>
 
   @if (loading()) {
-    <p>Cargando...</p>
+    <p class="page-sub">Cargando...</p>
   }
   @if (errorMessage()) {
     <p class="form-error">{{ errorMessage() }}</p>
   }
   @if (!loading() && tickets().length === 0) {
-    <p>No hay tickets para mostrar.</p>
+    <div class="empty-state">No hay tickets que coincidan con estos filtros.</div>
   }
 
   @if (tickets().length > 0) {
-    <table class="tickets-table">
-      <thead>
-        <tr>
-          <th>Titulo</th>
-          <th>Estado</th>
-          <th>Prioridad</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (ticket of tickets(); track ticket.id) {
-          <tr [routerLink]="['/tickets', ticket.id]">
-            <td>{{ ticket.title }}</td>
-            <td><span class="badge" [class]="'status-' + ticket.status">{{ ticket.status }}</span></td>
-            <td><span class="badge" [class]="'priority-' + ticket.priority">{{ ticket.priority }}</span></td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="ticket-rows">
+      @for (ticket of tickets(); track ticket.id) {
+        <a class="ticket-row" [routerLink]="['/tickets', ticket.id]" [class]="'accent-' + ticket.priority">
+          <div class="ticket-row-main">
+            <span class="ticket-ref">#{{ ticket.id.slice(-6) }}</span>
+            <span class="ticket-title">{{ ticket.title }}</span>
+          </div>
+          <div class="ticket-row-meta">
+            <span class="badge" [class]="'status-' + ticket.status">{{ ticket.status }}</span>
+            <span class="badge" [class]="'priority-' + ticket.priority">{{ ticket.priority }}</span>
+          </div>
+        </a>
+      }
+    </div>
 
     <div class="pagination">
-      <button (click)="goToPage(page() - 1)" [disabled]="page() === 1">Anterior</button>
-      <span>Pagina {{ page() }} de {{ totalPages() }}</span>
-      <button (click)="goToPage(page() + 1)" [disabled]="page() === totalPages()">Siguiente</button>
+      <button class="btn btn-secondary" (click)="goToPage(page() - 1)" [disabled]="page() === 1">Anterior</button>
+      <span class="page-sub">Pagina {{ page() }} de {{ totalPages() }}</span>
+      <button class="btn btn-secondary" (click)="goToPage(page() + 1)" [disabled]="page() === totalPages()">Siguiente</button>
     </div>
   }
 </div>

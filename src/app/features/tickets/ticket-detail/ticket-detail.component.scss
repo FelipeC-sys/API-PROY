@@ -1,108 +1,107 @@
-﻿.ticket-detail-page {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.back-link {
+﻿.back-link {
   display: inline-block;
-  margin-bottom: 1rem;
-  color: #2563eb;
+  margin-bottom: 1.25rem;
+  color: var(--color-ink-soft);
   text-decoration: none;
+  font-size: 0.85rem;
 }
 
-.ticket-info {
-  margin-bottom: 2rem;
-
-  h1 {
-    margin-bottom: 0.5rem;
-  }
+.back-link:hover {
+  color: var(--color-accent);
 }
 
-.meta {
+.card-stub {
+  margin-bottom: 1.5rem;
+}
+
+.ticket-header {
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.ticket-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.badge-row {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  background: #e5e7eb;
+.ticket-description {
+  color: var(--color-ink-soft);
+  line-height: 1.55;
+  margin: 0;
 }
 
-.comment {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
-}
-
-.add-comment {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  textarea {
-    min-height: 70px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: inherit;
-  }
-
-  button {
-    align-self: flex-start;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    background: #2563eb;
-    color: #fff;
-    cursor: pointer;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.form-error {
-  color: #d33;
-}
-
-.actions {
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
   margin-bottom: 2rem;
+}
 
-  h2 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
+.action-block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+}
+
+.action-block h2 {
+  font-size: 0.85rem;
+  margin: 0 0 0.65rem;
+  color: var(--color-ink-soft);
+  font-weight: 600;
 }
 
 .inline-form {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
+}
 
-  select {
-    padding: 0.4rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+.inline-form select {
+  flex: 1;
+}
 
-  button {
-    padding: 0.4rem 0.9rem;
-    border: none;
-    border-radius: 4px;
-    background: #2563eb;
-    color: #fff;
-    cursor: pointer;
+.comments h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 1rem;
+}
 
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
+.comment-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comment strong {
+  font-size: 0.85rem;
+}
+
+.comment p {
+  margin: 0.3rem 0 0;
+  color: var(--color-ink-soft);
+}
+
+.add-comment {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.add-comment textarea {
+  min-height: 80px;
+}
+
+.add-comment button {
+  align-self: flex-start;
 }

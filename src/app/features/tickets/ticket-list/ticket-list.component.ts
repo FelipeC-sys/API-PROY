@@ -20,6 +20,7 @@ export class TicketListComponent implements OnInit {
 
   readonly tickets = signal<Ticket[]>([]);
   readonly total = signal(0);
+  readonly totalPages = signal(1);
   readonly page = signal(1);
   readonly pageSize = 10;
   readonly loading = signal(false);
@@ -35,8 +36,6 @@ export class TicketListComponent implements OnInit {
     const role = this.authService.role();
     return role === "client" || role === "admin";
   });
-
-  readonly totalPages = computed(() => Math.max(1, Math.ceil(this.total() / this.pageSize)));
 
   ngOnInit(): void {
     this.load();
@@ -56,7 +55,8 @@ export class TicketListComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.tickets.set(res.data);
-          this.total.set(res.total);
+          this.total.set(res.meta.total);
+          this.totalPages.set(res.meta.totalPages);
           this.loading.set(false);
         },
         error: () => {

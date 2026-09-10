@@ -1,0 +1,6 @@
+
+Administrador	    admin@helpdesk.dev	    Admin123!
+Agente	            agent1@helpdesk.dev	    Agent123!
+Agente	            agent2@helpdesk.dev	    Agent123!
+Cliente         	client1@helpdesk.dev	Client123!
+Cliente	            client2@helpdesk.dev	Client123!
